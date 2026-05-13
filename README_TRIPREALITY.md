@@ -2,9 +2,10 @@
 
 ## Backend
 cd backend
-python -m venv .venv && source .venv/bin/activate
+python -m venv .venv && .venv\Scripts\activate
 pip install -r requirements.txt
-# create .env (see backend/.env)
+# copy .env.example to .env and fill in your API keys
+copy .env.example .env
 uvicorn server:app --reload --port 8001
 
 ## Frontend
