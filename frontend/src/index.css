@@ -1,0 +1,188 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --bg: #07080b;
+    --bg-2: #0b0d12;
+    --ink: #e9ecf1;
+    --ink-dim: #9aa3b2;
+    --teal: #5eead4;
+    --teal-2: #2dd4bf;
+    --amber: #fbbf24;
+    --rose: #fb7185;
+    --line: rgba(255, 255, 255, 0.08);
+}
+
+html, body, #root {
+    height: 100%;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, sans-serif;
+}
+
+body {
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+}
+
+.font-serif-i {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+}
+
+/* ===== Liquid Glass ===== */
+.liquid-glass {
+    position: relative;
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(22px) saturate(160%);
+    -webkit-backdrop-filter: blur(22px) saturate(160%);
+    border-radius: 9999px;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+.liquid-glass::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(140deg,
+        rgba(255, 255, 255, 0.35) 0%,
+        rgba(255, 255, 255, 0.06) 40%,
+        rgba(255, 255, 255, 0.02) 60%,
+        rgba(255, 255, 255, 0.25) 100%);
+    -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+}
+
+.liquid-glass::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(120% 100% at 0% 0%, rgba(255,255,255,0.10), transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.liquid-card {
+    position: relative;
+    background: rgba(255, 255, 255, 0.035);
+    backdrop-filter: blur(18px) saturate(150%);
+    -webkit-backdrop-filter: blur(18px) saturate(150%);
+    border-radius: 22px;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+.liquid-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(140deg,
+        rgba(255, 255, 255, 0.18) 0%,
+        rgba(255, 255, 255, 0.04) 40%,
+        rgba(255, 255, 255, 0.02) 60%,
+        rgba(255, 255, 255, 0.14) 100%);
+    -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+}
+
+/* tinted variants */
+.tint-teal { background: linear-gradient(180deg, rgba(45,212,191,0.08), rgba(45,212,191,0.02)); }
+.tint-rose { background: linear-gradient(180deg, rgba(251,113,133,0.08), rgba(251,113,133,0.02)); }
+.tint-amber { background: linear-gradient(180deg, rgba(251,191,36,0.08), rgba(251,191,36,0.02)); }
+.tint-violet { background: linear-gradient(180deg, rgba(167,139,250,0.08), rgba(167,139,250,0.02)); }
+
+/* grain */
+.grain::after {
+    content: "";
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.06 0'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>");
+    opacity: 0.35;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+}
+
+/* shimmer skeleton */
+@keyframes shimmer { 0% { background-position: -400px 0; } 100% { background-position: 400px 0; } }
+.shimmer {
+    background: linear-gradient(90deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.10) 50%, rgba(255,255,255,0.04) 100%);
+    background-size: 800px 100%;
+    animation: shimmer 1.6s linear infinite;
+}
+
+/* selection */
+::selection { background: rgba(94, 234, 212, 0.35); color: #fff; }
+
+/* scrollbar */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.16); }
+
+/* utility */
+.text-ink { color: var(--ink); }
+.text-dim { color: var(--ink-dim); }
+
+/* radial glow background */
+.bg-stars {
+    background:
+        radial-gradient(1200px 600px at 80% -10%, rgba(94,234,212,0.10), transparent 50%),
+        radial-gradient(900px 500px at 10% 110%, rgba(167,139,250,0.10), transparent 50%),
+        var(--bg);
+}
+
+/* pill chip */
+.chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 12px; border-radius: 9999px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: var(--ink-dim);
+    font-size: 12px;
+    transition: background 200ms ease, color 200ms ease, border-color 200ms ease;
+    cursor: pointer;
+}
+.chip:hover { background: rgba(255,255,255,0.08); color: var(--ink); }
+.chip.active { background: rgba(94,234,212,0.15); border-color: rgba(94,234,212,0.4); color: #d8fff7; }
+
+/* primary glow btn */
+.btn-primary {
+    background: linear-gradient(180deg, #e9ecf1, #c2c7d0);
+    color: #08090c;
+    border-radius: 9999px;
+    font-weight: 600;
+    transition: transform 200ms ease, box-shadow 200ms ease;
+}
+.btn-primary:hover { transform: translateY(-1px); box-shadow: 0 12px 32px -10px rgba(255,255,255,0.25); }
+
+/* severity bars */
+.sev-low { background: rgba(94,234,212,0.18); color: #5eead4; }
+.sev-medium { background: rgba(251,191,36,0.18); color: #fbbf24; }
+.sev-high { background: rgba(251,113,133,0.20); color: #fb7185; }
+
+/* link underline */
+.uline { background-image: linear-gradient(currentColor,currentColor); background-position: 0 100%; background-repeat: no-repeat; background-size: 0 1px; transition: background-size .3s; }
+.uline:hover { background-size: 100% 1px; }
+
+@layer base {
+    :root { --background: 0 0% 3.9%; --foreground: 0 0% 98%; --card: 0 0% 3.9%; --card-foreground: 0 0% 98%; --popover: 0 0% 3.9%; --popover-foreground: 0 0% 98%; --primary: 0 0% 98%; --primary-foreground: 0 0% 9%; --secondary: 0 0% 14.9%; --secondary-foreground: 0 0% 98%; --muted: 0 0% 14.9%; --muted-foreground: 0 0% 63.9%; --accent: 0 0% 14.9%; --accent-foreground: 0 0% 98%; --destructive: 0 62.8% 30.6%; --destructive-foreground: 0 0% 98%; --border: 0 0% 14.9%; --input: 0 0% 14.9%; --ring: 0 0% 83.1%; --radius: 0.75rem; }
+    body { @apply bg-background text-foreground; }
+}
