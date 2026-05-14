@@ -11,19 +11,20 @@ const RISK_ICONS = {
 
 export const ReportView = ({ report }) => {
   if (!report) return null;
+  const dataSignal = report.data_signal;
   return (
     <div className="space-y-5" data-testid="report-view">
       <Header report={report} />
-      <RealityCheck text={report.reality_check} />
+      <RealityCheck text={report.reality_check} dataSignal={dataSignal} />
       <div className="grid lg:grid-cols-2 gap-5">
-        <ProsCard items={report.hidden_pros || []} />
-        <ConsCard items={report.hidden_cons || []} />
+        <ProsCard items={report.hidden_pros || []} dataSignal={dataSignal} />
+        <ConsCard items={report.hidden_cons || []} dataSignal={dataSignal} />
       </div>
-      <RiskRadar items={report.risk_radar || []} />
-      <Neighborhoods items={report.neighborhoods || []} />
-      <CurrentSituation text={report.current_situation} />
-      <PracticalTips items={report.practical_tips || []} />
-      <Sources items={report.sources || []} confidence={report.confidence} />
+      <RiskRadar items={report.risk_radar || []} dataSignal={dataSignal} />
+      <Neighborhoods items={report.neighborhoods || []} dataSignal={dataSignal} />
+      <CurrentSituation text={report.current_situation} dataSignal={dataSignal} />
+      <PracticalTips items={report.practical_tips || []} dataSignal={dataSignal} />
+      <Sources items={report.sources || []} confidence={report.confidence} dataSignal={dataSignal} />
     </div>
   );
 };
@@ -41,6 +42,11 @@ const Header = ({ report }) => (
         <div className="text-xs uppercase tracking-[0.2em] text-teal-300/80">TripReality Report</div>
         <h2 className="mt-2 font-serif-i text-4xl text-white">{report.destination}</h2>
         <p className="mt-3 text-white/70 max-w-2xl text-sm">{report.summary}</p>
+        {report.data_signal && (
+          <div className="mt-2 text-xs text-white/40">
+            Based on <span className="text-teal-300 font-medium">{report.data_signal.post_count}</span> posts, <span className="text-teal-300">{report.data_signal.time_period}</span>
+          </div>
+        )}
       </div>
       <VibeScore score={report.vibe_score} />
     </div>
@@ -58,18 +64,24 @@ const VibeScore = ({ score }) => {
   );
 };
 
-const RealityCheck = ({ text }) => (
+const RealityCheck = ({ text, dataSignal }) => (
   text ? (
     <motion.div {...fadeUp(1)} className="liquid-card tint-violet p-6">
-      <div className="flex items-center gap-2 text-white/80"><Compass className="w-4 h-4" /><span className="text-xs uppercase tracking-[0.2em]">Reality Check</span></div>
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2 text-white/80"><Compass className="w-4 h-4" /><span className="text-xs uppercase tracking-[0.2em]">Reality Check</span></div>
+        {dataSignal && <div className="text-xs text-white/40">{dataSignal.post_count} posts · {dataSignal.time_period}</div>}
+      </div>
       <p className="mt-3 text-white/85 font-serif-i text-xl leading-snug">{text}</p>
     </motion.div>
   ) : null
 );
 
-const ProsCard = ({ items }) => (
+const ProsCard = ({ items, dataSignal }) => (
   <motion.div {...fadeUp(2)} className="liquid-card tint-teal p-6" data-testid="hidden-pros">
-    <div className="flex items-center gap-2 text-teal-300"><Sparkles className="w-4 h-4" /><span className="text-xs uppercase tracking-[0.2em]">Hidden Pros</span></div>
+    <div className="flex items-center justify-between">
+      <div className="flex items-center gap-2 text-teal-300"><Sparkles className="w-4 h-4" /><span className="text-xs uppercase tracking-[0.2em]">Hidden Pros</span></div>
+      {dataSignal && <div className="text-xs text-white/40">{dataSignal.post_count} posts · {dataSignal.time_period}</div>}
+    </div>
     <ul className="mt-4 space-y-4">
       {items.map((p, i) => (
         <li key={i} className="border-t border-white/5 pt-4 first:border-t-0 first:pt-0">
@@ -81,9 +93,12 @@ const ProsCard = ({ items }) => (
   </motion.div>
 );
 
-const ConsCard = ({ items }) => (
+const ConsCard = ({ items, dataSignal }) => (
   <motion.div {...fadeUp(2.5)} className="liquid-card tint-rose p-6" data-testid="hidden-cons">
-    <div className="flex items-center gap-2 text-rose-300"><AlertTriangle className="w-4 h-4" /><span className="text-xs uppercase tracking-[0.2em]">Hidden Cons & Risks</span></div>
+    <div className="flex items-center justify-between">
+      <div className="flex items-center gap-2 text-rose-300"><AlertTriangle className="w-4 h-4" /><span className="text-xs uppercase tracking-[0.2em]">Hidden Cons & Risks</span></div>
+      {dataSignal && <div className="text-xs text-white/40">{dataSignal.post_count} posts · {dataSignal.time_period}</div>}
+    </div>
     <ul className="mt-4 space-y-4">
       {items.map((p, i) => (
         <li key={i} className="border-t border-white/5 pt-4 first:border-t-0 first:pt-0">
@@ -95,9 +110,12 @@ const ConsCard = ({ items }) => (
   </motion.div>
 );
 
-const RiskRadar = ({ items }) => (
+const RiskRadar = ({ items, dataSignal }) => (
   <motion.div {...fadeUp(3)} className="liquid-card p-6" data-testid="risk-radar">
-    <div className="flex items-center gap-2 text-amber-300"><TrendingUp className="w-4 h-4" /><span className="text-xs uppercase tracking-[0.2em]">Risk Radar</span></div>
+    <div className="flex items-center justify-between">
+      <div className="flex items-center gap-2 text-amber-300"><TrendingUp className="w-4 h-4" /><span className="text-xs uppercase tracking-[0.2em]">Risk Radar</span></div>
+      {dataSignal && <div className="text-xs text-white/40">{dataSignal.post_count} posts · {dataSignal.time_period}</div>}
+    </div>
     <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-3 mt-4">
       {items.map((r, i) => {
         const Icon = RISK_ICONS[r.category] || ShieldAlert;
@@ -116,10 +134,13 @@ const RiskRadar = ({ items }) => (
   </motion.div>
 );
 
-const Neighborhoods = ({ items }) => (
+const Neighborhoods = ({ items, dataSignal }) => (
   items.length ? (
     <motion.div {...fadeUp(4)} className="liquid-card p-6" data-testid="neighborhoods">
-      <div className="flex items-center gap-2 text-white/80"><MapPin className="w-4 h-4" /><span className="text-xs uppercase tracking-[0.2em]">Best Neighborhoods</span></div>
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2 text-white/80"><MapPin className="w-4 h-4" /><span className="text-xs uppercase tracking-[0.2em]">Best Neighborhoods</span></div>
+        {dataSignal && <div className="text-xs text-white/40">{dataSignal.post_count} posts · {dataSignal.time_period}</div>}
+      </div>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-4">
         {items.map((n, i) => (
           <div key={i} className="liquid-card p-4">
@@ -134,19 +155,25 @@ const Neighborhoods = ({ items }) => (
   ) : null
 );
 
-const CurrentSituation = ({ text }) => (
+const CurrentSituation = ({ text, dataSignal }) => (
   text ? (
     <motion.div {...fadeUp(4.5)} className="liquid-card tint-amber p-6">
-      <div className="flex items-center gap-2 text-amber-300"><Activity className="w-4 h-4" /><span className="text-xs uppercase tracking-[0.2em]">Current Situation (last 30-90 days)</span></div>
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2 text-amber-300"><Activity className="w-4 h-4" /><span className="text-xs uppercase tracking-[0.2em]">Current Situation (last 30-90 days)</span></div>
+        {dataSignal && <div className="text-xs text-white/40">{dataSignal.post_count} posts · {dataSignal.time_period}</div>}
+      </div>
       <p className="mt-3 text-white/80 text-sm leading-relaxed">{text}</p>
     </motion.div>
   ) : null
 );
 
-const PracticalTips = ({ items }) => (
+const PracticalTips = ({ items, dataSignal }) => (
   items.length ? (
     <motion.div {...fadeUp(5)} className="liquid-card p-6" data-testid="practical-tips">
-      <div className="flex items-center gap-2 text-white/80"><Lightbulb className="w-4 h-4" /><span className="text-xs uppercase tracking-[0.2em]">Practical Tips</span></div>
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2 text-white/80"><Lightbulb className="w-4 h-4" /><span className="text-xs uppercase tracking-[0.2em]">Practical Tips</span></div>
+        {dataSignal && <div className="text-xs text-white/40">{dataSignal.post_count} posts · {dataSignal.time_period}</div>}
+      </div>
       <ul className="mt-4 grid sm:grid-cols-2 gap-x-6 gap-y-2 text-sm text-white/75">
         {items.map((t, i) => (
           <li key={i} className="flex gap-2"><span className="text-teal-300">›</span><span>{t}</span></li>
@@ -156,13 +183,16 @@ const PracticalTips = ({ items }) => (
   ) : null
 );
 
-const Sources = ({ items, confidence }) => (
+const Sources = ({ items, confidence, dataSignal }) => (
   <motion.div {...fadeUp(6)} className="liquid-card p-6" data-testid="sources">
     <div className="flex items-center justify-between">
       <div className="flex items-center gap-2 text-white/80"><ExternalLink className="w-4 h-4" /><span className="text-xs uppercase tracking-[0.2em]">Sources</span></div>
-      {confidence != null && (
-        <div className="text-xs text-white/55">Confidence: <span className="text-teal-300">{Math.round(Number(confidence) * 100)}%</span></div>
-      )}
+      <div className="flex items-center gap-3">
+        {dataSignal && <div className="text-xs text-white/40">{dataSignal.post_count} posts · {dataSignal.time_period}</div>}
+        {confidence != null && (
+          <div className="text-xs text-white/55">Confidence: <span className="text-teal-300">{Math.round(Number(confidence) * 100)}%</span></div>
+        )}
+      </div>
     </div>
     <ul className="mt-4 divide-y divide-white/5">
       {items.slice(0, 20).map((s) => (
