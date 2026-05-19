@@ -300,7 +300,7 @@ async def featured_cities():
 async def download_source():
     """Zip the entire /app codebase and stream it."""
     buf = io.BytesIO()
-    root = Path("/app")
+    root = Path(__file__).parent.parent
     exclude_dirs = {"node_modules", "__pycache__", ".git", "build", "dist", ".next", ".cache", "venv", ".venv"}
     exclude_files_suffix = {".pyc", ".log"}
     with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
