@@ -1,7 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { Plus, History, Bookmark, Sliders, Globe, ChevronLeft, ChevronRight, Download } from "lucide-react";
+import { Plus, History, Bookmark, Sliders, Globe, ChevronLeft, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { downloadSourceUrl } from "@/lib/api";
 
 const TRAVELER_TYPES = ["Any", "Solo", "Couple", "Family", "Digital Nomad", "Female Solo"];
 const BUDGETS = ["Shoestring", "Mid", "Comfort", "Luxury"];
@@ -80,15 +79,6 @@ export const Sidebar = ({ open, setOpen, recent, saved, onPickRecent, travelerTy
               </div>
             </Section>
 
-            <div className="mt-auto">
-              <a
-                href={downloadSourceUrl()}
-                className="flex items-center justify-center gap-2 text-xs text-white/55 hover:text-white px-3 py-2 rounded-full border border-white/10 hover:border-white/20"
-                data-testid="sidebar-download"
-              >
-                <Download className="w-3.5 h-3.5" /> Download Source Code
-              </a>
-            </div>
           </motion.aside>
         )}
       </AnimatePresence>
