@@ -1,5 +1,6 @@
 from fastapi import FastAPI, APIRouter, HTTPException
 from fastapi.responses import StreamingResponse
+from fastapi.staticfiles import StaticFiles
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -356,6 +357,10 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+static_dir = ROOT_DIR / "static"
+if static_dir.exists():
+    app.mount("/", StaticFiles(directory="static", html=True), name="static")
 
 @app.on_event("shutdown")
 async def shutdown_db_client():
