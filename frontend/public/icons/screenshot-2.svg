@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="512" viewBox="0 0 1024 512">
+  <rect width="100%" height="100%" fill="#0f172a"/>
+  <text x="50%" y="20%" font-size="28" fill="#fff" font-family="Inter, Arial, sans-serif" text-anchor="middle">TripReality — Landing</text>
+  <rect x="48" y="72" width="928" height="320" rx="12" fill="#111827"/>
+  <text x="100" y="120" font-size="20" fill="#e5e7eb">Discover honest travel insights from real Reddit posts.</text>
+</svg>

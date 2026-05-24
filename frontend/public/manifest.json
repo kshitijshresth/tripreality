@@ -2,6 +2,9 @@
   "name": "TripReality",
   "short_name": "TripReality",
   "description": "TripReality - Get honest travel insights",
+  "lang": "en-US",
+  "dir": "ltr",
+  "categories": ["travel", "productivity"],
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
@@ -18,6 +21,21 @@
       "src": "/icons/icon-512.svg",
       "sizes": "512x512",
       "type": "image/svg+xml"
+    }
+  ]
+  ,
+  "screenshots": [
+    {
+      "src": "/icons/screenshot-1.svg",
+      "sizes": "1024x512",
+      "type": "image/svg+xml",
+      "label": "Report view"
+    },
+    {
+      "src": "/icons/screenshot-2.svg",
+      "sizes": "1024x512",
+      "type": "image/svg+xml",
+      "label": "Landing page"
     }
   ]
 }
