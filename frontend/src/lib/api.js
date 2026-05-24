@@ -1,8 +1,8 @@
 import axios from "axios";
 
 // Use environment variable when available (set at build time). Fallback to
-// the deployed Render backend URL.
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "https://tripreality.onrender.com";
+// the deployed Vercel backend URL.
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "https://tripreality.vercel.app";
 export const API = `${BACKEND_URL.replace(/\/$/, "")}/api`;
 
 export const api = axios.create({ baseURL: API, timeout: 180000 });
