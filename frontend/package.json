@@ -66,7 +66,7 @@
     "test": "craco test",
     "postbuild": "node scripts/copy-electron.js",
     "electron:dev": "concurrently \"npm run start\" \"wait-on http://localhost:3000 && electron .\"",
-    "electron:build": "cross-env PUBLIC_URL=./ npm run build && electron-builder",
+    "electron:build": "cross-env PUBLIC_URL=./ npm run build && electron-builder --publish always",
     "electron:pack": "cross-env PUBLIC_URL=./ npm run build && electron-builder --dir"
   },
   "build": {
