@@ -3,8 +3,8 @@ services:
     name: tripreality-backend
     runtime: python
     plan: free
-    repo: https://github.com/YOUR_USERNAME/tripreality.git
-    branch: main
+    repo: https://github.com/kshitijshresth/tripreality.git
+    branch: master
     rootDir: backend
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn server:app --host 0.0.0.0 --port $PORT
